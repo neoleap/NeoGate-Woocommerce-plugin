@@ -47,11 +47,11 @@ function woocommerce_neogate_init() {
       $this -> id = 'neogate';
       $this -> method_title = __('NeoGate', 'neogate');
 	  $this -> method_description = __('Pay securely by Credit or Debit card .', 'neogate');
-      $this -> icon = WP_PLUGIN_URL . "/" . plugin_basename(dirname(__FILE__)) . '/images/cardslogo.png';
+      $this -> icon = WP_PLUGIN_URL . "/" . plugin_basename(dirname(__FILE__)) . '/images/Cardslogo.jpeg';
       $this -> has_fields = false;
       $this -> init_form_fields();
       $this -> init_settings();
-      $this -> title = 'Neogate'; //$this -> settings['title'];
+      $this -> title = 'Pay Online'; //$this -> settings['title'];
       $this -> description = $this -> settings['description'];
       $this -> gateway_url = $this -> settings['gateway_url'];
       $this -> redirect_page_id = $this -> settings['redirect_page_id'];      
@@ -63,6 +63,7 @@ function woocommerce_neogate_init() {
 	  $this -> udf2 = $this -> settings['udf2'];
 	  $this -> udf3 = $this -> settings['udf3'];
 	  $this -> udf4 = $this -> settings['udf4'];
+	  $this -> langid = $this -> settings['langid'];
 	  $this -> msg['message'] = "";
       $this -> msg['class'] = "";
 	
@@ -205,7 +206,12 @@ function woocommerce_neogate_init() {
             'title' => __('UDF10', 'neogate'),
             'type' => 'text',
             'description' =>  __('User Defined Field for custom parameters.', 'neogate')
-            ),	
+            ),
+		  'langid' => array(
+            'title' => __('langid', 'neogate'),
+            'type' => 'text',
+            'description' =>  __('Payment Page Language.', 'neogate')
+            ),			
           'redirect_page_id' => array(
             'title' => __('Return Page'),
             'type' => 'select',
@@ -480,7 +486,7 @@ function woocommerce_neogate_init() {
 		$ReqTranportalId = "id=".$this->tranportalid."&";
 		$ReqTranportalPassword = "password=".$this->tranportalpassword."&";
 		$ReqCurrency = "currencycode=".$currency['code']."&"; 
-		$ReqLangid = "langid=USA&";
+		$ReqLangid = "langid=".$this->langid."&";
 	
 		/* Shipping */
 		$Reqship_To_Postalcd = "ship_To_Postalcd=".$order->shipping_postcode."&";
